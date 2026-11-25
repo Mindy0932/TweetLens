@@ -33,5 +33,6 @@ def build():
     text=json.dumps(payload,ensure_ascii=False,separators=(',',':')).replace('<','\u003c').replace('>','\u003e').replace('&','\u0026')
     page=template.replace('__PAYLOAD__',text).replace('</body>',extra+'</body>')
     (ROOT/'TweetLens_Showcase.html').write_text(page,encoding='utf-8')
+    (ROOT/'index.html').write_text(page,encoding='utf-8')
     print('Built showcase; RoBERTa measured results:',bool(payload.get('roberta')))
 if __name__=='__main__':build()

@@ -4,7 +4,7 @@ TweetLens examines how short English tweets express sentiment and which text spa
 
 Developed by Junyan Deng in collaboration with OpenAI Codex.
 
-[Open the interactive demonstration](https://tweetlens-junyan-preview.cozy-otter-4451.chatgpt.site)
+[Open the interactive demonstration](https://mindy0932.github.io/TweetLens/)
 
 ## Research questions
 

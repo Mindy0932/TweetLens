@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "width": 1360,
+      "language": "en",
+      "passed": true
+    },
+    {
+      "width": 1360,
+      "language": "zh-Hant",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "language": "en",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "language": "zh-Hant",
+      "passed": true
+    }
+  ],
+  "smoothScroll": true
+}

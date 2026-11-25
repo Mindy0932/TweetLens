@@ -1,0 +1,103 @@
+<script>
+const extendedModels=[...D.metrics.classification];
+if(D.roberta)extendedModels.push(D.roberta.metric);
+$('modelTable').innerHTML=table(['模型','Accuracy','Macro-F1'],extendedModels.map(r=>[r.model,pct(r.accuracy),r.macro_f1.toFixed(3)]));
+$('modelChart').innerHTML=extendedModels.map(r=>'<h3>'+esc(r.model)+'</h3>'+bars([{label:'Macro-F1',n:r.macro_f1,color:'#235deb'}],1)).join('');
+$('confusion').insertAdjacentHTML('beforebegin','<label for="matrixChoice">查看模型</label><select id="matrixChoice">'+extendedModels.map((r,i)=>'<option value="'+i+'">'+esc(r.model)+'</option>').join('')+'</select><p class="note">点击矩阵中的数量，在下方预览相应验证样本。</p>');
+let matrixFilter=null;
+const linearRows=D.rows.map(r=>({...r}));
+const robertaAvailable=Boolean(D.roberta);
+$('samples').insertAdjacentHTML('beforebegin','<div class="toolbar"><label for="sampleModel">样本模型</label><select id="sampleModel"><option value="linear">Logistic regression</option><option value="roberta">RoBERTa frozen + LR</option></select><label for="confidenceThreshold">最低模型概率 <output id="thresholdValue">0%</output></label><input id="confidenceThreshold" type="range" min="0" max="100" value="0"><label><input type="checkbox" id="disagreementOnly">只看模型分歧</label><button id="resetSelection">重置筛选</button></div><p class="note" id="selectionInfo"></p>');
+if(!robertaAvailable){$('sampleModel').options[1].disabled=true;$('disagreementOnly').disabled=true;}
+function enhancedFilter(){
+ const useRoberta=$('sampleModel').value==='roberta';
+ const q=$('search').value.toLowerCase(),threshold=Number($('confidenceThreshold').value)/100;
+ filtered=linearRows.map(r=>({...r,linear_prediction:r.prediction,prediction:useRoberta?r.roberta_prediction:r.prediction,confidence:useRoberta?r.roberta_confidence:r.confidence})).filter(r=>
+ (!q||r.text.toLowerCase().includes(q))&&($('labelFilter').value==='all'||r.sentiment===$('labelFilter').value)&&(!$('errorsOnly').checked||r.prediction!==r.sentiment)&&r.confidence>=threshold&&(!$('disagreementOnly').checked||r.linear_prediction!==r.roberta_prediction)&&(!matrixFilter||(r.sentiment===matrixFilter.real&&r.prediction===matrixFilter.pred)));
+ $('thresholdValue').textContent=$('confidenceThreshold').value+'%';
+ $('selectionInfo').textContent=matrixFilter?'矩阵筛选：真实 '+matrixFilter.real+' / 预测 '+matrixFilter.pred:'';
+ page=0;renderSamples();
+}
+sampleFilter=enhancedFilter;
+for(const id of ['search','labelFilter','errorsOnly','sampleModel','confidenceThreshold','disagreementOnly'])$(id).addEventListener(['search','confidenceThreshold'].includes(id)?'input':'change',enhancedFilter);
+$('resetSelection').onclick=()=>{matrixFilter=null;$('search').value='';$('labelFilter').value='all';$('errorsOnly').checked=false;$('confidenceThreshold').value=0;$('disagreementOnly').checked=false;enhancedFilter()};
+function enhancedMatrix(){
+ const model=extendedModels[Number($('matrixChoice').value)],maximum=Math.max(...model.confusion.flat());
+ $('confusion').innerHTML='<table><thead><tr><th>真实 / 预测</th>'+labels.map(l=>'<th>'+l+'</th>').join('')+'</tr></thead><tbody>'+model.confusion.map((row,i)=>'<tr><th>'+labels[i]+'</th>'+row.map((n,j)=>'<td><button class="matrix-cell" data-real="'+labels[i]+'" data-pred="'+labels[j]+'" aria-label="真实 '+labels[i]+' 预测 '+labels[j]+' 共 '+n+' 条" style="width:100%;background:rgba(35,93,235,'+(.08+.8*n/maximum)+');color:'+(n/maximum>.6?'white':'#243757')+'">'+n+'</button></td>').join('')+'</tr>').join('')+'</tbody></table>';
+ for(const cell of $('confusion').querySelectorAll('button'))cell.onclick=()=>{
+ if(!['Logistic regression','RoBERTa frozen + LR'].includes(model.model)){ $('confusion').insertAdjacentHTML('beforeend','<p class="note">请切换至逻辑回归或 RoBERTa 查看逐条样本。</p>');return;}
+ $('resetSelection').click();$('sampleModel').value=model.model.startsWith('RoBERTa')?'roberta':'linear';
+ matrixFilter={real:cell.dataset.real,pred:cell.dataset.pred};enhancedFilter();
+ showInlinePreview('matrixPreview', filtered, '真实 ' + matrixFilter.real + ' / 预测 ' + matrixFilter.pred);
+ };
+}
+$('matrixChoice').value='1';$('matrixChoice').onchange=enhancedMatrix;enhancedMatrix();enhancedFilter();
+$('analysisResult').insertAdjacentHTML('beforebegin','<div class="toolbar"><label for="liveModel">分类模型</label><select id="liveModel"><option value="linear">Logistic regression · 离线可用</option><option value="roberta">RoBERTa frozen + LR · 浏览器推理</option></select></div><p class="note">RoBERTa 新文本在浏览器内分析。首次使用需下载约125 MB模型，之后可复用缓存。分类概率未经校准，高亮由独立词权重提取器生成。</p>');
+let requestVersion=0;
+const originalAnalyze=analyze;
+analyze=async function(){
+ const version=++requestVersion;
+ if($('liveModel').value==='linear'){originalAnalyze();return}
+ const text=$('tweetInput').value;
+ if(!text.trim()){$('analysisResult').textContent='请输入英文推文。';return;}
+ const cachedRow=linearRows.find(row=>row.text===text&&row.roberta_probs);
+ const cached=cachedRow?{label:cachedRow.roberta_prediction,classes:labels,probs:cachedRow.roberta_probs}:D.robertaDemos?.[text];
+ if(cached){
+  const source=$('sentimentMode').value,span=extract(text,source==='auto'?cached.label:source);
+  $('analysisResult').innerHTML='<span class="badge">'+esc(cached.label)+'</span><div class="big-result">'+highlight(text,span)+'</div>'+bars(cached.classes.map((label,i)=>({label,n:cached.probs[i],color:C[label]})),1)+'<p class="note">回放本项目已运行的 RoBERTa 预测。修改文本后可使用浏览器实时推理。</p>';
+  return;
+ }
+ if(location.protocol==='file:'){$('analysisResult').textContent='这条新文本需要本地 RoBERTa 服务。请运行 python serve_showcase.py，或先点击预设示例体验已计算结果。';return;}
+ $('analyzeBtn').disabled=true;$('analysisResult').textContent='RoBERTa 正在分析，首次加载需要一些时间…';
+ try{
+  let result;
+  if(['127.0.0.1','localhost'].includes(location.hostname)&&!window.TweetLensForceBrowser){
+   const response=await fetch('/api/roberta',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})});
+   result=await response.json();
+   if(!response.ok)throw Error(result.error||'服务不可用');
+  }else{
+   result=await window.runBrowserRoberta(text,progress=>{
+    if(version!==requestVersion)return;
+    const status=progress.stage==='download'?'正在下载 RoBERTa 模型':progress.stage==='initialize'?'正在初始化 RoBERTa':'正在分析推文';
+    $('analysisResult').replaceChildren();
+    const label=document.createElement('p');label.textContent=status;
+    const meter=document.createElement('progress');meter.max=1;meter.value=progress.fraction;meter.style.width='100%';
+    const percent=document.createElement('p');percent.textContent=Math.round(progress.fraction*100)+'%';
+    $('analysisResult').append(label,meter,percent);
+   });
+  }
+  if(version!==requestVersion)return;
+  const mode=$('sentimentMode').value,span=extract(text,mode==='auto'?result.label:mode);
+  $('analysisResult').innerHTML='<span class="badge">'+esc(result.label)+'</span><div class="big-result">'+highlight(text,span)+'</div>'+bars(result.classes.map((label,i)=>({label,n:result.probs[i],color:C[label]})),1);
+ }catch(error){
+  console.error('RoBERTa inference failed',error);
+  if(version===requestVersion){
+   $('analysisResult').replaceChildren();
+   const message=document.createElement('p');message.textContent='模型加载或分析失败，请检查网络后重试。';
+   const retry=document.createElement('button');retry.className='btn secondary';retry.textContent='重试';retry.onclick=()=>analyze();
+   $('analysisResult').append(message,retry);
+  }
+ }
+ finally{if(version===requestVersion)$('analyzeBtn').disabled=false}
+};
+$('liveModel').onchange=()=>{requestVersion++;$('analyzeBtn').disabled=false;$('analysisResult').textContent='已切换模型，点击分析查看结果。'};
+$('analyzeBtn').onclick=analyze;
+
+const originalRender=renderSamples;
+renderSamples=function(){
+ originalRender();
+ const cards=$('samples').querySelectorAll('.sample');
+ cards.forEach((card,index)=>{
+  const row=filtered[page*6+index];
+  const button=document.createElement('button');button.textContent='打开这条推文';
+  button.onclick=()=>{
+   $('tweetInput').value=row.text;$('liveModel').value=$('sampleModel').value;
+   goToDetail('analyze');analyze();
+  };
+  card.appendChild(button);
+ });
+};
+renderSamples();
+$('tweetInput').maxLength=3000;
+
+</script>

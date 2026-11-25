@@ -1,0 +1,1059 @@
+{
+  "phrases": {
+    "数据概览": {
+      "en": "Overview",
+      "zh-Hant": "資料概覽"
+    },
+    "模型实验": {
+      "en": "Model comparison",
+      "zh-Hant": "模型實驗"
+    },
+    "推文分析": {
+      "en": "Analyze a tweet",
+      "zh-Hant": "推文分析"
+    },
+    "样本探索": {
+      "en": "Explore samples",
+      "zh-Hant": "樣本探索"
+    },
+    "方法与来源": {
+      "en": "Methods & sources",
+      "zh-Hant": "方法與來源"
+    },
+    "从一条推文，读懂情感与表达。": {
+      "en": "Explore sentiment, one tweet at a time.",
+      "zh-Hant": "從一條推文，讀懂情感與表達。"
+    },
+    "清洗后推文": {
+      "en": "Cleaned tweets",
+      "zh-Hant": "清洗後推文"
+    },
+    "独立验证样本": {
+      "en": "Validation samples",
+      "zh-Hant": "獨立驗證樣本"
+    },
+    "情感分类 Macro-F1": {
+      "en": "Sentiment Macro-F1",
+      "zh-Hant": "情感分類 Macro-F1"
+    },
+    "已知情感 · 片段 Jaccard": {
+      "en": "Span Jaccard · known sentiment",
+      "zh-Hant": "已知情感 · 片段 Jaccard"
+    },
+    "来自 27,481 条原始训练记录": {
+      "en": "From 27,481 original records",
+      "zh-Hant": "來自 27,481 條原始訓練記錄"
+    },
+    "按文本分组 · 无跨组重复": {
+      "en": "Grouped by text, with no overlap",
+      "zh-Hant": "按文字分組 · 無跨組重複"
+    },
+    "逻辑回归 · Accuracy": {
+      "en": "Logistic regression · Accuracy",
+      "zh-Hant": "邏輯迴歸 · Accuracy"
+    },
+    "全文基线": {
+      "en": "Full-text baseline",
+      "zh-Hant": "全文基線"
+    },
+    "人们如何表达情感？": {
+      "en": "How do people express sentiment?",
+      "zh-Hant": "人們如何表達情感？"
+    },
+    "清洗后语料的人工情感标签": {
+      "en": "Human sentiment labels in the cleaned corpus",
+      "zh-Hant": "清洗後語料的人工情感標籤"
+    },
+    "类别分布并不均衡。模型比较同时报告 Macro-F1，避免只看整体准确率。": {
+      "en": "The classes are imbalanced. Macro-F1 complements accuracy by giving each class equal weight.",
+      "zh-Hant": "類別分佈並不均衡。模型比較同時報告 Macro-F1，避免只看整體準確率。"
+    },
+    "一份可追溯的数据流程": {
+      "en": "From raw data to validation",
+      "zh-Hant": "一份可追溯的資料流程"
+    },
+    "同文本分组，避免重复内容跨训练与验证集": {
+      "en": "Identical normalized texts stay in the same split.",
+      "zh-Hant": "同文字分組，避免重複內容跨訓練與驗證集"
+    },
+    "原始训练记录": {
+      "en": "Original training records",
+      "zh-Hant": "原始訓練記錄"
+    },
+    "去除缺失记录": {
+      "en": "Missing records removed",
+      "zh-Hant": "去除缺失記錄"
+    },
+    "去除重复记录": {
+      "en": "Duplicate records removed",
+      "zh-Hant": "去除重複記錄"
+    },
+    "训练集": {
+      "en": "Training set",
+      "zh-Hant": "訓練集"
+    },
+    "验证集": {
+      "en": "Validation set",
+      "zh-Hant": "驗證集"
+    },
+    "讨论空间 · 主题投影": {
+      "en": "Explore the topic projection",
+      "zh-Hant": "討論空間 · 主題投影"
+    },
+    "验证集固定抽样 · 颜色表示真实情感": {
+      "en": "Fixed validation sample · color shows the true label",
+      "zh-Hant": "驗證集固定抽樣 · 顏色表示真實情感"
+    },
+    "全部主题簇": {
+      "en": "All topic clusters",
+      "zh-Hant": "全部主題簇"
+    },
+    "主题簇里的情感差异": {
+      "en": "Sentiment within topic clusters",
+      "zh-Hant": "主題簇裡的情感差異"
+    },
+    "自动关键词 · 行内比例 · 真实标签 · 未经人工主题验证": {
+      "en": "Automatic keywords · row proportions · human sentiment labels",
+      "zh-Hant": "自動關鍵詞 · 行內比例 · 真實標籤 · 未經人工主題驗證"
+    },
+    "主题关键词": {
+      "en": "Topic keywords",
+      "zh-Hant": "主題關鍵詞"
+    },
+    "自动主题关键词": {
+      "en": "Automatic topic keywords",
+      "zh-Hant": "自動主題關鍵詞"
+    },
+    "查看当前选择的样本": {
+      "en": "View selected samples",
+      "zh-Hant": "檢視當前選擇的樣本"
+    },
+    "重置选择": {
+      "en": "Reset selection",
+      "zh-Hant": "重置選擇"
+    },
+    "二维 SVD 保留约": {
+      "en": "The 2D SVD projection retains about",
+      "zh-Hant": "二維 SVD 保留約"
+    },
+    "的方差。点击图例或选择主题突出显示；悬停读原文，点击圆点预览。": {
+      "en": "of the variance. Use the legend or topic selector to highlight points. Hover to read a tweet, or click to preview it.",
+      "zh-Hant": "的方差。點選圖例或選擇主題突出顯示；懸停讀原文，點選圓點預覽。"
+    },
+    "当前突出显示": {
+      "en": "Highlighted",
+      "zh-Hant": "當前突出顯示"
+    },
+    "个抽样点": {
+      "en": "sampled points",
+      "zh-Hant": "個抽樣點"
+    },
+    "主题投影，点击一个点预览推文": {
+      "en": "Topic projection. Click a point to preview a tweet.",
+      "zh-Hant": "主題投影，點選一個點預覽推文"
+    },
+    "模型真的学到了什么？": {
+      "en": "How do the models compare?",
+      "zh-Hant": "模型真的學到了什麼？"
+    },
+    "同一训练划分与验证集。RoBERTa 使用外部预训练权重，固定编码器后拟合分类头。": {
+      "en": "The models share a training split and validation set. RoBERTa uses external pretrained weights with a frozen encoder and a fitted classification head.",
+      "zh-Hant": "同一訓練劃分與驗證集。RoBERTa 使用外部預訓練權重，固定編碼器後擬合分類頭。"
+    },
+    "比较指标": {
+      "en": "Compare metric",
+      "zh-Hant": "比較指標"
+    },
+    "哪些情感最容易混淆？": {
+      "en": "Which sentiments get confused?",
+      "zh-Hant": "哪些情感最容易混淆？"
+    },
+    "行为真实标签，列为预测标签": {
+      "en": "Rows show true labels. Columns show predictions.",
+      "zh-Hant": "行為真實標籤，列為預測標籤"
+    },
+    "查看模型": {
+      "en": "Select model",
+      "zh-Hant": "檢視模型"
+    },
+    "点击矩阵中的数量，在下方预览相应验证样本。": {
+      "en": "Click a matrix cell to preview matching validation samples below.",
+      "zh-Hant": "點選矩陣中的數量，在下方預覽相應驗證樣本。"
+    },
+    "真实 / 预测": {
+      "en": "True / predicted",
+      "zh-Hant": "真實 / 預測"
+    },
+    "真实 ↓ / 预测 →": {
+      "en": "True ↓ / predicted →",
+      "zh-Hant": "真實 ↓ / 預測 →"
+    },
+    "片段提取，需要区分输入条件": {
+      "en": "Span extraction under two input conditions",
+      "zh-Hant": "片段提取，需要區分輸入條件"
+    },
+    "已知情感标签的提取与完全自动的流程分别评估。Jaccard 是词集合重合度，不是分类准确率。": {
+      "en": "Span extraction with a known sentiment and the fully automatic pipeline are evaluated separately. Jaccard measures word-set overlap.",
+      "zh-Hant": "已知情感標籤的提取與完全自動的流程分別評估。Jaccard 是詞集合重合度，不是分類準確率。"
+    },
+    "样本数": {
+      "en": "Samples",
+      "zh-Hant": "樣本數"
+    },
+    "全文返回": {
+      "en": "Return full text",
+      "zh-Hant": "全文返回"
+    },
+    "已知情感提取": {
+      "en": "Known-sentiment extraction",
+      "zh-Hant": "已知情感提取"
+    },
+    "自动流程提取": {
+      "en": "Automatic pipeline",
+      "zh-Hant": "自動流程提取"
+    },
+    "已知情感时，提取器从全文基线": {
+      "en": "With known sentiment, extraction improves from the full-text baseline",
+      "zh-Hant": "已知情感時，提取器從全文基線"
+    },
+    "提升至": {
+      "en": "to",
+      "zh-Hant": "提升至"
+    },
+    "；使用预测情感后降为": {
+      "en": ". Using predicted sentiment reduces the score to",
+      "zh-Hant": "；使用預測情感後降為"
+    },
+    "。这说明上游分类误差会传递到提取步骤。": {
+      "en": ". Classification errors carry through to span extraction.",
+      "zh-Hant": "。這說明上游分類誤差會傳遞到提取步驟。"
+    },
+    "线性分类器关注的词组": {
+      "en": "Features used by the linear classifier",
+      "zh-Hant": "線性分類器關注的片語"
+    },
+    "各类别正向特征权重最高的15项；关联不代表因果，也不是片段提取结果。": {
+      "en": "The 15 highest positive feature weights per class. These associations are separate from the extracted spans and do not establish causation.",
+      "zh-Hant": "各類別正向特徵權重最高的15項；關聯不代表因果，也不是片段提取結果。"
+    },
+    "试着输入一条英文推文": {
+      "en": "Try an English tweet",
+      "zh-Hant": "試著輸入一條英文推文"
+    },
+    "线性模型可离线推理；RoBERTa 通过本地服务运行。": {
+      "en": "Linear inference runs offline. RoBERTa handles new text through the local service.",
+      "zh-Hant": "線性模型可離線推理；RoBERTa 透過本地服務執行。"
+    },
+    "自动预测情感": {
+      "en": "Predict sentiment automatically",
+      "zh-Hant": "自動預測情感"
+    },
+    "指定：positive": {
+      "en": "Specify positive",
+      "zh-Hant": "指定：positive"
+    },
+    "指定：negative": {
+      "en": "Specify negative",
+      "zh-Hant": "指定：negative"
+    },
+    "指定：neutral": {
+      "en": "Specify neutral",
+      "zh-Hant": "指定：neutral"
+    },
+    "分析推文 →": {
+      "en": "Analyze tweet →",
+      "zh-Hant": "分析推文 →"
+    },
+    "正面示例": {
+      "en": "Positive example",
+      "zh-Hant": "正面示例"
+    },
+    "负面示例": {
+      "en": "Negative example",
+      "zh-Hant": "負面示例"
+    },
+    "混合表达": {
+      "en": "Mixed sentiment",
+      "zh-Hant": "混合表達"
+    },
+    "训练语料为英文短文本。指定情感模拟原比赛条件；自动预测展示两步流程。模型概率未经校准。": {
+      "en": "The training corpus contains short English texts. Specifying sentiment follows the original task conditions. Automatic mode adds sentiment prediction. Probabilities are uncalibrated.",
+      "zh-Hant": "訓練語料為英文短文字。指定情感模擬原比賽條件；自動預測展示兩步流程。模型機率未經校準。"
+    },
+    "分析结果": {
+      "en": "Analysis result",
+      "zh-Hant": "分析結果"
+    },
+    "分类模型": {
+      "en": "Classification model",
+      "zh-Hant": "分類模型"
+    },
+    "Logistic regression · 离线可用": {
+      "en": "Logistic regression · offline",
+      "zh-Hant": "Logistic regression · 離線可用"
+    },
+    "RoBERTa frozen + LR · 本地服务": {
+      "en": "RoBERTa frozen + LR · local service",
+      "zh-Hant": "RoBERTa frozen + LR · 本地服務"
+    },
+    "RoBERTa 验证样本和预设示例支持离线回放；新文本通过本地服务计算。分类概率未经校准，高亮由独立词权重提取器生成。": {
+      "en": "Saved RoBERTa results for validation samples and examples can be replayed offline. New text uses the local service. Probabilities are uncalibrated. A separate lexical extractor supplies the highlight.",
+      "zh-Hant": "RoBERTa 驗證樣本和預設示例支援離線回放；新文字透過本地服務計算。分類機率未經校準，高亮由獨立詞權重提取器生成。"
+    },
+    "点击“分析推文”查看结果。": {
+      "en": "Select Analyze tweet to see the result.",
+      "zh-Hant": "點選“分析推文”檢視結果。"
+    },
+    "高亮文字来自独立的监督式片段提取器，不能当作分类器判断原因的证明。模型仍会在语境、口语及混合情感上出错。": {
+      "en": "The highlight comes from a separate supervised span extractor. It does not establish why the classifier made its decision. Context, informal language and mixed sentiment remain challenging.",
+      "zh-Hant": "高亮文字來自獨立的監督式片段提取器，不能當作分類器判斷原因的證明。模型仍會在語境、口語及混合情感上出錯。"
+    },
+    "每一个结果，都可以回到原文": {
+      "en": "Inspect the original text behind each result",
+      "zh-Hant": "每一個結果，都可以回到原文"
+    },
+    "全部独立验证样本 · 真实标注对照 · 支持关键词检索": {
+      "en": "All validation samples · human-label comparison · keyword search",
+      "zh-Hant": "全部獨立驗證樣本 · 真實標註對照 · 支援關鍵詞檢索"
+    },
+    "导出当前筛选 CSV": {
+      "en": "Export filtered CSV",
+      "zh-Hant": "匯出當前篩選 CSV"
+    },
+    "搜索关键词，如 love / not / service": {
+      "en": "Search keywords, e.g. love / not / service",
+      "zh-Hant": "搜尋關鍵詞，如 love / not / service"
+    },
+    "全部真实情感": {
+      "en": "All true labels",
+      "zh-Hant": "全部真實情感"
+    },
+    "仅看分类错误": {
+      "en": "Classification errors only",
+      "zh-Hant": "僅看分類錯誤"
+    },
+    "样本模型": {
+      "en": "Sample model",
+      "zh-Hant": "樣本模型"
+    },
+    "最低模型概率": {
+      "en": "Minimum model probability",
+      "zh-Hant": "最低模型機率"
+    },
+    "只看模型分歧": {
+      "en": "Model disagreements only",
+      "zh-Hant": "只看模型分歧"
+    },
+    "重置筛选": {
+      "en": "Reset filters",
+      "zh-Hant": "重置篩選"
+    },
+    "← 上一页": {
+      "en": "← Previous",
+      "zh-Hant": "← 上一頁"
+    },
+    "下一页 →": {
+      "en": "Next →",
+      "zh-Hant": "下一頁 →"
+    },
+    "方法、边界与项目贡献": {
+      "en": "Methods, scope and authorship",
+      "zh-Hant": "方法、邊界與專案貢獻"
+    },
+    "01 / 数据与评估": {
+      "en": "Data and evaluation",
+      "zh-Hant": "01 / 資料與評估"
+    },
+    "02 / 模型结构": {
+      "en": "Model structure",
+      "zh-Hant": "02 / 模型結構"
+    },
+    "03 / 分数如何解释": {
+      "en": "Interpreting the scores",
+      "zh-Hant": "03 / 分數如何解釋"
+    },
+    "04 / 适用范围": {
+      "en": "Scope",
+      "zh-Hant": "04 / 適用範圍"
+    },
+    "05 / 作者与来源": {
+      "en": "Authorship and sources",
+      "zh-Hant": "05 / 作者與來源"
+    },
+    "按标准化文本分组后拆分训练与验证集，同文本跨组数量为0。词表、分类器、提取器、聚类和投影只拟合训练数据。分类模型比较是探索实验；后续反复调参需另设最终测试集。": {
+      "en": "Training and validation are split by normalized text, with zero overlapping text groups. The vocabulary, classifier, span extractor, clustering and projection are fitted on training data. This is an exploratory comparison. Further tuning requires a separate final test set.",
+      "zh-Hant": "按標準化文字分組後拆分訓練與驗證集，同文字跨組數量為0。詞表、分類器、提取器、聚類和投影只擬合訓練資料。分類模型比較是探索實驗；後續反覆調參需另設最終測試集。"
+    },
+    "情感分类：TF-IDF（unigram + bigram，最多35,000特征）与逻辑回归；线性SVM和多数类作为比较。": {
+      "en": "Sentiment classification uses TF-IDF unigrams and bigrams, capped at 35,000 features, with logistic regression. Linear SVM and a majority-class baseline are compared.",
+      "zh-Hant": "情感分類：TF-IDF（unigram + bigram，最多35,000特徵）與邏輯迴歸；線性SVM和多數類作為比較。"
+    },
+    "关键片段：根据训练标注学习各情感的片段内外词权重，搜索连续片段（上限12个token）。中性及极短文本返回全文。是透明的基础模型，不是Transformer。": {
+      "en": "Span extraction learns per-sentiment lexical weights from training annotations and searches contiguous spans of up to 12 tokens. Neutral and very short texts return the full text.",
+      "zh-Hant": "關鍵片段：根據訓練標註學習各情感的片段內外詞權重，搜尋連續片段（上限12個token）。中性及極短文字返回全文。是透明的基礎模型，不是Transformer。"
+    },
+    "主题探索：TF-IDF + SVD + KMeans（8簇）与二维Truncated SVD。自动主题并非经过验证的语义类别。": {
+      "en": "Topic exploration uses TF-IDF, SVD and KMeans with eight clusters, plus a 2D truncated-SVD projection. Automatically generated clusters have not been validated as semantic categories.",
+      "zh-Hant": "主題探索：TF-IDF + SVD + KMeans（8簇）與二維Truncated SVD。自動主題並非經過驗證的語義類別。"
+    },
+    "“已知情感”使用真实标签提取；“自动流程”使用预测标签再提取。两者不能混为同一种实验条件。Kaggle测试文件缺少真实片段，本项目没有报告其提取分数，也没有新的官方排名。": {
+      "en": "Known-sentiment extraction uses the true label. The automatic pipeline uses a predicted label. These are different experimental conditions. Kaggle test data lack annotated spans, so this project reports no extraction score on that set or new official ranking.",
+      "zh-Hant": "“已知情感”使用真實標籤提取；“自動流程”使用預測標籤再提取。兩者不能混為同一種實驗條件。Kaggle測試檔案缺少真實片段，本專案沒有報告其提取分數，也沒有新的官方排名。"
+    },
+    "历史英文推文样本不能代表整个平台。没有时间、点赞、转发和用户关系字段，不分析传播效果、时间趋势或社交网络。自动提取片段不是因果解释；概率未独立校准；讽刺、否定等错误原因需要人工复核。": {
+      "en": "Historical English tweets do not represent the entire platform. This dataset lacks timestamps, likes, reposts and user relationships, limiting analysis of reach, trends and social networks. Extracted spans do not establish causation. Probabilities are uncalibrated. Error causes such as irony and negation need manual review.",
+      "zh-Hant": "歷史英文推文樣本不能代表整個平臺。沒有時間、點贊、轉發和使用者關係欄位，不分析傳播效果、時間趨勢或社交網路。自動提取片段不是因果解釋；機率未獨立校準；諷刺、否定等錯誤原因需要人工複核。"
+    },
+    "Junyan Deng · 与 OpenAI Codex 协作开发。": {
+      "en": "Junyan Deng · Developed in collaboration with OpenAI Codex.",
+      "zh-Hant": "Junyan Deng · 與 OpenAI Codex 協作開發。"
+    },
+    "Junyan Deng · 与 OpenAI Codex 协作开发": {
+      "en": "Junyan Deng · Developed in collaboration with OpenAI Codex",
+      "zh-Hant": "Junyan Deng · 與 OpenAI Codex 協作開發"
+    },
+    "本项目在 AI 协助下实现：新增防重复泄漏的验证流程、分类模型比较、词权重片段提取、主题探索、离线推理、Streamlit应用与文档。新写代码为MIT许可；数据使用遵守来源条款。": {
+      "en": "Developed with AI assistance, including validation safeguards, model comparison, lexical span extraction, topic exploration, offline inference, a Streamlit app and documentation. New code is MIT-licensed. Data use follows the source terms.",
+      "zh-Hant": "本專案在 AI 協助下實現：新增防重複洩漏的驗證流程、分類模型比較、詞權重片段提取、主題探索、離線推理、Streamlit應用與文件。新寫程式碼為MIT許可；資料使用遵守來源條款。"
+    },
+    "数据来自": {
+      "en": "Data source",
+      "zh-Hant": "資料來自"
+    },
+    "完整代码、训练入口、验证结果、数据清单和运行说明见项目压缩包。": {
+      "en": "The project package contains the code, training entry points, validation results, data manifest and setup instructions.",
+      "zh-Hant": "完整程式碼、訓練入口、驗證結果、資料清單和執行說明見專案壓縮包。"
+    },
+    "查看全部匹配样本": {
+      "en": "View all matching samples",
+      "zh-Hant": "檢視全部匹配樣本"
+    },
+    "分析这条推文": {
+      "en": "Analyze this tweet",
+      "zh-Hant": "分析這條推文"
+    },
+    "打开这条推文": {
+      "en": "Open this tweet",
+      "zh-Hant": "開啟這條推文"
+    },
+    "收起预览": {
+      "en": "Close preview",
+      "zh-Hant": "收起預覽"
+    },
+    "选中的推文": {
+      "en": "Selected tweet",
+      "zh-Hant": "選中的推文"
+    },
+    "全部情感": {
+      "en": "All sentiments",
+      "zh-Hant": "全部情感"
+    },
+    "真实情感": {
+      "en": "True sentiment",
+      "zh-Hant": "真實情感"
+    },
+    "原线性流程 Jaccard": {
+      "en": "Original linear-pipeline Jaccard",
+      "zh-Hant": "原線性流程 Jaccard"
+    },
+    "分类概率": {
+      "en": "Class probability",
+      "zh-Hant": "分類機率"
+    },
+    "人工片段：": {
+      "en": "Annotated span",
+      "zh-Hant": "人工片段："
+    },
+    "主题簇：": {
+      "en": "Topic cluster",
+      "zh-Hant": "主題簇："
+    },
+    "主题：": {
+      "en": "Topic",
+      "zh-Hant": "主題："
+    },
+    "矩阵筛选：真实": {
+      "en": "Matrix filter · true",
+      "zh-Hant": "矩陣篩選：真實"
+    },
+    "矩阵：": {
+      "en": "Matrix",
+      "zh-Hant": "矩陣："
+    },
+    "真实": {
+      "en": "True",
+      "zh-Hant": "真實"
+    },
+    "预测": {
+      "en": "Predicted",
+      "zh-Hant": "預測"
+    },
+    "概率": {
+      "en": "Probability",
+      "zh-Hant": "機率"
+    },
+    "未校准": {
+      "en": "Uncalibrated",
+      "zh-Hant": "未校準"
+    },
+    "提取使用情感：": {
+      "en": "Sentiment used for extraction",
+      "zh-Hant": "提取使用情感："
+    },
+    "指定标签": {
+      "en": "Specified label",
+      "zh-Hant": "指定標籤"
+    },
+    "自动流程": {
+      "en": "Automatic pipeline",
+      "zh-Hant": "自動流程"
+    },
+    "查看": {
+      "en": "View",
+      "zh-Hant": "檢視"
+    },
+    "返回": {
+      "en": "Back to",
+      "zh-Hant": "返回"
+    },
+    "匹配": {
+      "en": "Matched",
+      "zh-Hant": "匹配"
+    },
+    "条验证样本": {
+      "en": "validation samples",
+      "zh-Hant": "條驗證樣本"
+    },
+    "条验证推文": {
+      "en": "validation tweets",
+      "zh-Hant": "條驗證推文"
+    },
+    "条清洗后语料。点击预览该标签的验证样本。": {
+      "en": "cleaned records. Click to preview validation samples for this label.",
+      "zh-Hant": "條清洗後語料。點選預覽該標籤的驗證樣本。"
+    },
+    "点击预览匹配样本": {
+      "en": "Click to preview matching samples",
+      "zh-Hant": "點選預覽匹配樣本"
+    },
+    "点击预览推文": {
+      "en": "Click to preview the tweet",
+      "zh-Hant": "點選預覽推文"
+    },
+    "点击查看混淆矩阵": {
+      "en": "Click to view the confusion matrix",
+      "zh-Hant": "點選檢視混淆矩陣"
+    },
+    "点击查找包含该词组的验证推文": {
+      "en": "Click to find validation tweets containing this feature",
+      "zh-Hant": "點選查詢包含該片語的驗證推文"
+    },
+    "包含 “": {
+      "en": "Containing “",
+      "zh-Hant": "包含 “"
+    },
+    "模型": {
+      "en": "Model",
+      "zh-Hant": "模型"
+    },
+    "请输入一条英文推文。": {
+      "en": "Enter an English tweet.",
+      "zh-Hant": "請輸入一條英文推文。"
+    },
+    "请输入英文推文。": {
+      "en": "Enter an English tweet.",
+      "zh-Hant": "請輸入英文推文。"
+    },
+    "没有匹配的样本。": {
+      "en": "No matching samples.",
+      "zh-Hant": "沒有匹配的樣本。"
+    },
+    "已切换模型，点击分析查看结果。": {
+      "en": "Model selected. Analyze the tweet to see the result.",
+      "zh-Hant": "已切換模型，點選分析檢視結果。"
+    },
+    "回放本项目已运行的 RoBERTa 预测。编辑为新文本后需本地服务实时计算。": {
+      "en": "Replaying a measured RoBERTa prediction. New text requires the local service.",
+      "zh-Hant": "回放本專案已執行的 RoBERTa 預測。編輯為新文字後需本地服務實時計算。"
+    },
+    "这条新文本需要本地 RoBERTa 服务。请运行 python serve_showcase.py，或先点击预设示例体验已计算结果。": {
+      "en": "New text requires the local RoBERTa service. Run python serve_showcase.py, or choose an example to replay a measured result.",
+      "zh-Hant": "這條新文字需要本地 RoBERTa 服務。請執行 python serve_showcase.py，或先點選預設示例體驗已計算結果。"
+    },
+    "RoBERTa 正在分析，首次加载需要一些时间…": {
+      "en": "Running RoBERTa. The first model load may take a moment…",
+      "zh-Hant": "RoBERTa 正在分析，首次載入需要一些時間…"
+    },
+    "服务不可用": {
+      "en": "Service unavailable",
+      "zh-Hant": "服務不可用"
+    },
+    "输入没有匹配训练词表，预测主要来自类别截距，不宜解读。": {
+      "en": "No input features matched the training vocabulary. The prediction is driven mainly by class intercepts.",
+      "zh-Hant": "輸入沒有匹配訓練詞表，預測主要來自類別截距，不宜解讀。"
+    },
+    "请切换至逻辑回归或 RoBERTa 查看逐条样本。": {
+      "en": "Select logistic regression or RoBERTa to inspect individual samples.",
+      "zh-Hant": "請切換至邏輯迴歸或 RoBERTa 檢視逐條樣本。"
+    },
+    "共": {
+      "en": "Total",
+      "zh-Hant": "共"
+    },
+    "条": {
+      "en": "records",
+      "zh-Hant": "條"
+    },
+    "样本": {
+      "en": "Samples",
+      "zh-Hant": "樣本"
+    },
+    "RoBERTa frozen + LR · 浏览器推理": {
+      "en": "RoBERTa frozen + LR · browser inference",
+      "zh-Hant": "RoBERTa frozen + LR · 瀏覽器推理"
+    },
+    "RoBERTa 新文本在浏览器内分析。首次使用需下载约125 MB模型，之后可复用缓存。分类概率未经校准，高亮由独立词权重提取器生成。": {
+      "en": "RoBERTa analyzes new text in your browser. The first use downloads about 125 MB, then reuses the cache. Probabilities are uncalibrated. Highlights come from a separate lexical extractor.",
+      "zh-Hant": "RoBERTa 新文字在瀏覽器內分析。首次使用需下載約125 MB模型，之後可複用快取。分類機率未經校準，高亮由獨立詞權重提取器生成。"
+    },
+    "回放本项目已运行的 RoBERTa 预测。修改文本后可使用浏览器实时推理。": {
+      "en": "Replaying a measured RoBERTa prediction. Edit the text to run a new prediction in your browser.",
+      "zh-Hant": "回放本專案已執行的 RoBERTa 預測。修改文字後可使用瀏覽器實時推理。"
+    },
+    "两种模型均支持输入新推文进行分析。": {
+      "en": "Both models accept new English tweets for analysis.",
+      "zh-Hant": "兩種模型均支援輸入新推文進行分析。"
+    },
+    "正在下载 RoBERTa 模型": {
+      "en": "Downloading RoBERTa",
+      "zh-Hant": "正在下載 RoBERTa 模型"
+    },
+    "正在初始化 RoBERTa": {
+      "en": "Initializing RoBERTa",
+      "zh-Hant": "正在初始化 RoBERTa"
+    },
+    "正在分析推文": {
+      "en": "Analyzing the tweet",
+      "zh-Hant": "正在分析推文"
+    },
+    "模型加载或分析失败，请检查网络后重试。": {
+      "en": "The model could not load or analyze this text. Check your connection and retry.",
+      "zh-Hant": "模型載入或分析失敗，請檢查網路後重試。"
+    },
+    "重试": {
+      "en": "Retry",
+      "zh-Hant": "重試"
+    },
+    "在线推理使用同一分类头的 INT8 ONNX 浏览器版本。保存的验证指标来自 Python 实验；量化与运行时会带来数值差异。": {
+      "en": "Live inference uses an INT8 ONNX browser version with the same classification head. Saved validation metrics come from the Python experiment. Quantization and runtimes can produce numerical differences.",
+      "zh-Hant": "線上推理使用同一分類頭的 INT8 ONNX 瀏覽器版本。儲存的驗證指標來自 Python 實驗；量化與執行時會帶來數值差異。"
+    }
+  },
+  "traditional": {
+    "览": "覽",
+    "独": "獨",
+    "习": "習",
+    "目": "目",
+    "二": "二",
+    "版": "版",
+    "图": "圖",
+    "亮": "亮",
+    "起": "起",
+    "器": "器",
+    "词": "詞",
+    "指": "指",
+    "使": "使",
+    "条": "條",
+    "特": "特",
+    "无": "無",
+    "项": "項",
+    "泄": "洩",
+    "分": "分",
+    "证": "證",
+    "子": "子",
+    "定": "定",
+    "不": "不",
+    "页": "頁",
+    "筛": "篩",
+    "络": "絡",
+    "置": "置",
+    "过": "過",
+    "守": "守",
+    "史": "史",
+    "品": "品",
+    "据": "據",
+    "按": "按",
+    "码": "碼",
+    "影": "影",
+    "通": "通",
+    "该": "該",
+    "么": "麼",
+    "历": "歷",
+    "动": "動",
+    "集": "集",
+    "游": "遊",
+    "压": "壓",
+    "础": "礎",
+    "续": "續",
+    "部": "部",
+    "的": "的",
+    "型": "型",
+    "间": "間",
+    "献": "獻",
+    "改": "改",
+    "人": "人",
+    "留": "留",
+    "份": "份",
+    "读": "讀",
+    "片": "片",
+    "对": "對",
+    "比": "比",
+    "报": "報",
+    "免": "免",
+    "每": "每",
+    "表": "表",
+    "字": "字",
+    "因": "因",
+    "果": "果",
+    "换": "換",
+    "会": "會",
+    "段": "段",
+    "平": "平",
+    "边": "邊",
+    "限": "限",
+    "程": "程",
+    "赛": "賽",
+    "打": "打",
+    "如": "如",
+    "标": "標",
+    "体": "體",
+    "校": "校",
+    "围": "圍",
+    "方": "方",
+    "算": "算",
+    "输": "輸",
+    "是": "是",
+    "着": "著",
+    "外": "外",
+    "什": "什",
+    "样": "樣",
+    "征": "徵",
+    "势": "勢",
+    "和": "和",
+    "写": "寫",
+    "调": "調",
+    "包": "包",
+    "学": "學",
+    "可": "可",
+    "理": "理",
+    "排": "排",
+    "流": "流",
+    "签": "籤",
+    "去": "去",
+    "看": "看",
+    "式": "式",
+    "击": "擊",
+    "要": "要",
+    "明": "明",
+    "新": "新",
+    "判": "判",
+    "推": "推",
+    "到": "到",
+    "次": "次",
+    "数": "數",
+    "结": "結",
+    "转": "轉",
+    "缺": "缺",
+    "代": "代",
+    "有": "有",
+    "析": "析",
+    "至": "至",
+    "升": "升",
+    "设": "設",
+    "中": "中",
+    "作": "作",
+    "再": "再",
+    "衡": "衡",
+    "文": "文",
+    "非": "非",
+    "测": "測",
+    "义": "義",
+    "漏": "漏",
+    "度": "度",
+    "整": "整",
+    "宜": "宜",
+    "支": "支",
+    "混": "混",
+    "了": "了",
+    "化": "化",
+    "逻": "邏",
+    "发": "發",
+    "贡": "貢",
+    "录": "錄",
+    "根": "根",
+    "成": "成",
+    "各": "各",
+    "评": "評",
+    "计": "計",
+    "列": "列",
+    "易": "易",
+    "立": "立",
+    "从": "從",
+    "例": "例",
+    "约": "約",
+    "语": "語",
+    "率": "率",
+    "断": "斷",
+    "何": "何",
+    "或": "或",
+    "解": "解",
+    "上": "上",
+    "截": "截",
+    "告": "告",
+    "切": "切",
+    "知": "知",
+    "准": "準",
+    "量": "量",
+    "只": "只",
+    "没": "沒",
+    "固": "固",
+    "空": "空",
+    "错": "錯",
+    "圆": "圓",
+    "出": "出",
+    "确": "確",
+    "正": "正",
+    "停": "停",
+    "为": "為",
+    "供": "供",
+    "逐": "逐",
+    "下": "下",
+    "款": "款",
+    "说": "說",
+    "概": "概",
+    "透": "透",
+    "范": "範",
+    "探": "探",
+    "效": "效",
+    "洗": "洗",
+    "入": "入",
+    "均": "均",
+    "法": "法",
+    "取": "取",
+    "自": "自",
+    "淆": "淆",
+    "核": "核",
+    "境": "境",
+    "先": "先",
+    "时": "時",
+    "见": "見",
+    "色": "色",
+    "也": "也",
+    "英": "英",
+    "差": "差",
+    "原": "原",
+    "择": "擇",
+    "这": "這",
+    "单": "單",
+    "骤": "驟",
+    "检": "檢",
+    "重": "重",
+    "哪": "哪",
+    "试": "試",
+    "练": "練",
+    "许": "許",
+    "回": "回",
+    "情": "情",
+    "完": "完",
+    "网": "網",
+    "始": "始",
+    "递": "遞",
+    "别": "別",
+    "一": "一",
+    "持": "持",
+    "距": "距",
+    "用": "用",
+    "步": "步",
+    "前": "前",
+    "口": "口",
+    "防": "防",
+    "组": "組",
+    "低": "低",
+    "等": "等",
+    "聚": "聚",
+    "显": "顯",
+    "际": "際",
+    "复": "復",
+    "短": "短",
+    "避": "避",
+    "负": "負",
+    "适": "適",
+    "归": "歸",
+    "当": "當",
+    "经": "經",
+    "需": "需",
+    "些": "些",
+    "播": "播",
+    "服": "服",
+    "终": "終",
+    "与": "與",
+    "名": "名",
+    "监": "監",
+    "并": "並",
+    "保": "保",
+    "个": "個",
+    "含": "含",
+    "讨": "討",
+    "除": "除",
+    "构": "構",
+    "跨": "跨",
+    "照": "照",
+    "官": "官",
+    "歧": "歧",
+    "社": "社",
+    "清": "清",
+    "里": "裡",
+    "来": "來",
+    "同": "同",
+    "行": "行",
+    "督": "督",
+    "传": "傳",
+    "向": "向",
+    "反": "反",
+    "另": "另",
+    "赞": "贊",
+    "刺": "刺",
+    "编": "編",
+    "阵": "陣",
+    "后": "後",
+    "索": "索",
+    "讽": "諷",
+    "放": "放",
+    "投": "投",
+    "以": "以",
+    "两": "兩",
+    "缩": "縮",
+    "溯": "溯",
+    "提": "提",
+    "仍": "仍",
+    "交": "交",
+    "估": "估",
+    "达": "達",
+    "搜": "搜",
+    "辑": "輯",
+    "实": "實",
+    "注": "注",
+    "簇": "簇",
+    "记": "記",
+    "连": "連",
+    "由": "由",
+    "趋": "趨",
+    "键": "鍵",
+    "线": "線",
+    "系": "系",
+    "工": "工",
+    "匹": "匹",
+    "论": "論",
+    "者": "者",
+    "最": "最",
+    "未": "未",
+    "都": "都",
+    "关": "關",
+    "返": "返",
+    "找": "找",
+    "界": "界",
+    "追": "追",
+    "内": "內",
+    "合": "合",
+    "相": "相",
+    "载": "載",
+    "释": "釋",
+    "共": "共",
+    "失": "失",
+    "面": "面",
+    "增": "增",
+    "档": "檔",
+    "懂": "懂",
+    "台": "臺",
+    "维": "維",
+    "矩": "矩",
+    "基": "基",
+    "本": "本",
+    "现": "現",
+    "配": "配",
+    "模": "模",
+    "加": "加",
+    "少": "少",
+    "性": "性",
+    "突": "突",
+    "感": "感",
+    "及": "及",
+    "区": "區",
+    "生": "生",
+    "已": "已",
+    "真": "真",
+    "展": "展",
+    "遵": "遵",
+    "应": "應",
+    "较": "較",
+    "全": "全",
+    "运": "運",
+    "拟": "擬",
+    "多": "多",
+    "其": "其",
+    "首": "首",
+    "题": "題",
+    "联": "聯",
+    "验": "驗",
+    "收": "收",
+    "地": "地",
+    "权": "權",
+    "点": "點",
+    "修": "修",
+    "们": "們",
+    "布": "布",
+    "在": "在",
+    "预": "預",
+    "源": "源",
+    "降": "降",
+    "抽": "抽",
+    "类": "類",
+    "极": "極",
+    "仅": "僅",
+    "查": "查",
+    "高": "高",
+    "示": "示",
+    "删": "刪",
+    "参": "參",
+    "误": "誤",
+    "主": "主",
+    "料": "料",
+    "悬": "懸",
+    "选": "選",
+    "导": "導",
+    "助": "助",
+    "训": "訓",
+    "拆": "拆",
+    "异": "異",
+    "颜": "顏",
+    "容": "容",
+    "件": "件",
+    "开": "開",
+    "请": "請",
+    "能": "能",
+    "种": "種",
+    "离": "離",
+    "否": "否",
+    "务": "務",
+    "超": "超",
+    "户": "戶",
+    "协": "協",
+    "浏": "瀏",
+    "之": "之",
+    "缓": "緩",
+    "存": "存",
+    "进": "進",
+    "初": "初",
+    "败": "敗"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "downloadFailureRetry": true,
+  "newTextBrowserInference": true,
+  "traditionalChinese": true,
+  "cacheReuse": true,
+  "cachedReloadModelRequests": 0,
+  "pythonApiRequests": 0,
+  "modelBytes": 124801424
+}

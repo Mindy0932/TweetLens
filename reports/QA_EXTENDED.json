@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "environment": "Headless Microsoft Edge through Playwright. Browser plugin not available.",
+  "viewports": [
+    [
+      1360,
+      900
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "checks": [
+    "English is the initial default",
+    "English and Traditional Chinese controls appear in the header at upper right",
+    "Language selection survives reload",
+    "No untranslated Chinese UI text found across the English tabs and tested dynamic states",
+    "Chart clicks stay in place and show inline sample previews",
+    "Explicit sample and analysis buttons navigate to the intended panel",
+    "Back button restores the originating panel and stored scroll position",
+    "Each preview retains its own sample selection",
+    "Language switching preserves selected model and filters",
+    "Legend, topic, heatmap, metric, matrix and term controls update real results",
+    "No JavaScript exceptions",
+    "No mobile horizontal overflow"
+  ],
+  "prior_validation": "Local RoBERTa free-text inference passed in the preceding model integration check.",
+  "scope": "HTML showcase and local API integration. Streamlit interface has not been localized or browser-tested."
+}

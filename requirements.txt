@@ -1,0 +1,7 @@
+numpy>=2.0,<3
+pandas>=2.2,<3
+scikit-learn==1.8.0
+joblib>=1.4,<2
+streamlit>=1.45,<2
+plotly>=6,<7
+jupyterlab>=4,<5

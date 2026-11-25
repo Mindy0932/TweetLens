@@ -1,0 +1,430 @@
+{
+  "stats": {
+    "raw_rows": 27481,
+    "missing_rows_removed": 1,
+    "duplicates_removed": 68,
+    "clean_rows": 27412,
+    "train_rows": 21931,
+    "validation_rows": 5481,
+    "test_rows": 3534,
+    "seed": 42,
+    "group_overlap": 0,
+    "class_counts": {
+      "neutral": 11100,
+      "positive": 8538,
+      "negative": 7774
+    },
+    "train_class_counts": {
+      "neutral": 8936,
+      "positive": 6783,
+      "negative": 6212
+    },
+    "validation_class_counts": {
+      "neutral": 2164,
+      "positive": 1755,
+      "negative": 1562
+    },
+    "source_sha256": "192204063468a632b2601f6e833c42d7875b618d1a6e5c9529ad8ca58ee6be75",
+    "sklearn_version": "1.8.0",
+    "python_version": "3.12.14",
+    "train_seconds": 4.19,
+    "annotation_alignment_skipped": 0
+  },
+  "classification": [
+    {
+      "model": "Majority baseline",
+      "accuracy": 0.394818463783981,
+      "macro_f1": 0.18870721604534554,
+      "report": {
+        "negative": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 1562.0
+        },
+        "neutral": {
+          "precision": 0.394818463783981,
+          "recall": 1.0,
+          "f1-score": 0.5661216481360366,
+          "support": 2164.0
+        },
+        "positive": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 1755.0
+        },
+        "accuracy": 0.394818463783981,
+        "macro avg": {
+          "precision": 0.13160615459466032,
+          "recall": 0.3333333333333333,
+          "f1-score": 0.18870721604534554,
+          "support": 5481.0
+        },
+        "weighted avg": {
+          "precision": 0.15588161934474273,
+          "recall": 0.394818463783981,
+          "f1-score": 0.2235152794319254,
+          "support": 5481.0
+        }
+      },
+      "confusion": [
+        [
+          0,
+          1562,
+          0
+        ],
+        [
+          0,
+          2164,
+          0
+        ],
+        [
+          0,
+          1755,
+          0
+        ]
+      ]
+    },
+    {
+      "model": "Logistic regression",
+      "accuracy": 0.6896551724137931,
+      "macro_f1": 0.6911347016528512,
+      "report": {
+        "negative": {
+          "precision": 0.7056659308314938,
+          "recall": 0.6139564660691421,
+          "f1-score": 0.65662444368367,
+          "support": 1562.0
+        },
+        "neutral": {
+          "precision": 0.6223832528180354,
+          "recall": 0.7144177449168208,
+          "f1-score": 0.6652323580034424,
+          "support": 2164.0
+        },
+        "positive": {
+          "precision": 0.7783882783882784,
+          "recall": 0.7264957264957265,
+          "f1-score": 0.7515473032714411,
+          "support": 1755.0
+        },
+        "accuracy": 0.6896551724137931,
+        "macro avg": {
+          "precision": 0.7021458206792692,
+          "recall": 0.6849566458272297,
+          "f1-score": 0.6911347016528512,
+          "support": 5481.0
+        },
+        "weighted avg": {
+          "precision": 0.6960698725831875,
+          "recall": 0.6896551724137931,
+          "f1-score": 0.6904170262716148,
+          "support": 5481.0
+        }
+      },
+      "confusion": [
+        [
+          959,
+          530,
+          73
+        ],
+        [
+          328,
+          1546,
+          290
+        ],
+        [
+          72,
+          408,
+          1275
+        ]
+      ]
+    },
+    {
+      "model": "Linear SVM",
+      "accuracy": 0.6746943988323298,
+      "macro_f1": 0.6766327999737004,
+      "report": {
+        "negative": {
+          "precision": 0.6735537190082644,
+          "recall": 0.6261203585147247,
+          "f1-score": 0.6489714664897147,
+          "support": 1562.0
+        },
+        "neutral": {
+          "precision": 0.6231947483588621,
+          "recall": 0.6580406654343808,
+          "f1-score": 0.640143852551135,
+          "support": 2164.0
+        },
+        "positive": {
+          "precision": 0.7431192660550459,
+          "recall": 0.7384615384615385,
+          "f1-score": 0.7407830808802515,
+          "support": 1755.0
+        },
+        "accuracy": 0.6746943988323298,
+        "macro avg": {
+          "precision": 0.6799559111407242,
+          "recall": 0.674207520803548,
+          "f1-score": 0.6766327999737004,
+          "support": 5481.0
+        },
+        "weighted avg": {
+          "precision": 0.6759457501306498,
+          "recall": 0.6746943988323298,
+          "f1-score": 0.674883969079079,
+          "support": 5481.0
+        }
+      },
+      "confusion": [
+        [
+          978,
+          498,
+          86
+        ],
+        [
+          378,
+          1424,
+          362
+        ],
+        [
+          96,
+          363,
+          1296
+        ]
+      ]
+    }
+  ],
+  "span": [
+    {
+      "sentiment": "all",
+      "n": 5481,
+      "whole_text_jaccard": 0.5825859373331903,
+      "oracle_jaccard": 0.6179576627397748,
+      "pipeline_jaccard": 0.523204203521088
+    },
+    {
+      "sentiment": "negative",
+      "n": 1562,
+      "whole_text_jaccard": 0.3334260435848427,
+      "oracle_jaccard": 0.3527644508567505,
+      "pipeline_jaccard": 0.34476977893672517
+    },
+    {
+      "sentiment": "neutral",
+      "n": 2164,
+      "whole_text_jaccard": 0.9754398553745053,
+      "oracle_jaccard": 0.9754398553745053,
+      "pipeline_jaccard": 0.7661864380615739
+    },
+    {
+      "sentiment": "positive",
+      "n": 1755,
+      "whole_text_jaccard": 0.3199374332839102,
+      "oracle_jaccard": 0.4131943192068561,
+      "pipeline_jaccard": 0.3824070614442576
+    }
+  ],
+  "topic_names": {
+    "0": "day / happy / mother",
+    "1": "really / oh / sucks",
+    "2": "new / think / ll",
+    "3": "work / going / love",
+    "4": "just / got / home",
+    "5": "good / morning / luck",
+    "6": "http / com / twitpic",
+    "7": "like / looks / feel"
+  },
+  "top_terms": {
+    "negative": [
+      {
+        "term": "sad",
+        "weight": 7.39997290075666
+      },
+      {
+        "term": "sorry",
+        "weight": 6.980282647568778
+      },
+      {
+        "term": "miss",
+        "weight": 6.132732836017705
+      },
+      {
+        "term": "hate",
+        "weight": 5.935579936285843
+      },
+      {
+        "term": "sucks",
+        "weight": 5.6110941660739515
+      },
+      {
+        "term": "sick",
+        "weight": 5.251113358356871
+      },
+      {
+        "term": "stupid",
+        "weight": 4.752641815398792
+      },
+      {
+        "term": "missed",
+        "weight": 4.550170746128199
+      },
+      {
+        "term": "bad",
+        "weight": 4.522783305690824
+      },
+      {
+        "term": "tired",
+        "weight": 4.371833421268568
+      },
+      {
+        "term": "poor",
+        "weight": 4.342711803126447
+      },
+      {
+        "term": "missing",
+        "weight": 4.172737381324193
+      },
+      {
+        "term": "bored",
+        "weight": 4.09021471934119
+      },
+      {
+        "term": "hurts",
+        "weight": 4.0772408755872664
+      },
+      {
+        "term": "fail",
+        "weight": 4.030069920140706
+      }
+    ],
+    "neutral": [
+      {
+        "term": "is it",
+        "weight": 2.0541920968800405
+      },
+      {
+        "term": "but",
+        "weight": 1.951311140617239
+      },
+      {
+        "term": "gots",
+        "weight": 1.5908012954028077
+      },
+      {
+        "term": "you wish",
+        "weight": 1.5212670187920874
+      },
+      {
+        "term": "45",
+        "weight": 1.4811349068623514
+      },
+      {
+        "term": "thru",
+        "weight": 1.4280090075626295
+      },
+      {
+        "term": "goin",
+        "weight": 1.4270988371585058
+      },
+      {
+        "term": "tho",
+        "weight": 1.418961368383102
+      },
+      {
+        "term": "what was",
+        "weight": 1.4074352867924926
+      },
+      {
+        "term": "ve just",
+        "weight": 1.4037882781234539
+      },
+      {
+        "term": "bed good",
+        "weight": 1.3645269859433142
+      },
+      {
+        "term": "sucks but",
+        "weight": 1.3610108125972982
+      },
+      {
+        "term": "tour",
+        "weight": 1.321618718386136
+      },
+      {
+        "term": "would have",
+        "weight": 1.3050335098412427
+      },
+      {
+        "term": "that means",
+        "weight": 1.2984048650851436
+      }
+    ],
+    "positive": [
+      {
+        "term": "love",
+        "weight": 9.29657955935842
+      },
+      {
+        "term": "good",
+        "weight": 7.900977552744012
+      },
+      {
+        "term": "happy",
+        "weight": 7.227833702420713
+      },
+      {
+        "term": "awesome",
+        "weight": 7.062753391502346
+      },
+      {
+        "term": "thanks",
+        "weight": 7.038408890970569
+      },
+      {
+        "term": "great",
+        "weight": 6.985054291094933
+      },
+      {
+        "term": "nice",
+        "weight": 6.58907630756342
+      },
+      {
+        "term": "fun",
+        "weight": 5.430687972416619
+      },
+      {
+        "term": "amazing",
+        "weight": 5.351163596053474
+      },
+      {
+        "term": "hope",
+        "weight": 5.1228619289447055
+      },
+      {
+        "term": "excited",
+        "weight": 4.860186940765139
+      },
+      {
+        "term": "cute",
+        "weight": 4.801439396826892
+      },
+      {
+        "term": "thank",
+        "weight": 4.6286922189796655
+      },
+      {
+        "term": "lovely",
+        "weight": 4.515812038642927
+      },
+      {
+        "term": "best",
+        "weight": 4.461043994941699
+      }
+    ]
+  },
+  "default_model": "Logistic regression",
+  "svd_variance_explained": 0.012353721810877103
+}

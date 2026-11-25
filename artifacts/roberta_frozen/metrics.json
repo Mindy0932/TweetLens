@@ -1,0 +1,67 @@
+{
+  "model": "FacebookAI/roberta-base",
+  "revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+  "pooling": "attention-mask mean",
+  "quantization": "dynamic int8 linear layers",
+  "max_length": 64,
+  "train_rows": 21931,
+  "validation_rows": 5481,
+  "experiment": "Frozen pretrained encoder; fitted logistic regression head",
+  "head_C": 1,
+  "seed": 42,
+  "metric": {
+    "model": "RoBERTa frozen + LR",
+    "accuracy": 0.658821382959314,
+    "macro_f1": 0.6600415878436093,
+    "confusion": [
+      [
+        964,
+        481,
+        117
+      ],
+      [
+        376,
+        1446,
+        342
+      ],
+      [
+        125,
+        429,
+        1201
+      ]
+    ],
+    "report": {
+      "negative": {
+        "precision": 0.6580204778156996,
+        "recall": 0.617157490396927,
+        "f1-score": 0.6369342583415923,
+        "support": 1562.0
+      },
+      "neutral": {
+        "precision": 0.6137521222410866,
+        "recall": 0.6682070240295749,
+        "f1-score": 0.6398230088495576,
+        "support": 2164.0
+      },
+      "positive": {
+        "precision": 0.7234939759036144,
+        "recall": 0.6843304843304844,
+        "f1-score": 0.7033674963396779,
+        "support": 1755.0
+      },
+      "accuracy": 0.658821382959314,
+      "macro avg": {
+        "precision": 0.6650888586534669,
+        "recall": 0.6565649995856621,
+        "f1-score": 0.6600415878436093,
+        "support": 5481.0
+      },
+      "weighted avg": {
+        "precision": 0.6615069342435098,
+        "recall": 0.658821382959314,
+        "f1-score": 0.6593465168319913,
+        "support": 5481.0
+      }
+    }
+  }
+}

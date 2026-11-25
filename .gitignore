@@ -1,0 +1,10 @@
+.venv/
+node_modules/
+__pycache__/
+.ipynb_checkpoints/
+.hf-cache/
+*.npy
+*.onnx
+*.log
+*_identity.json
+data/*.csv

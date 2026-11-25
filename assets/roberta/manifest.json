@@ -1,0 +1,53 @@
+{
+  "revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+  "classes": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "max_length": 64,
+  "chunks": [
+    {
+      "file": "model-00.bin",
+      "bytes": 16777216,
+      "sha256": "0536bed905c7095b0125b7e806825d3044b663a9c023fbb9d6faf86310057035"
+    },
+    {
+      "file": "model-01.bin",
+      "bytes": 16777216,
+      "sha256": "9a8da3e19a6714008f197b1452723717dd6b1419e05f2b587899926643bbe265"
+    },
+    {
+      "file": "model-02.bin",
+      "bytes": 16777216,
+      "sha256": "74fdda5b275364261150df6cbcb43d37fff6f8198f0b9eb02d04007ec9e7dd73"
+    },
+    {
+      "file": "model-03.bin",
+      "bytes": 16777216,
+      "sha256": "9e54dbdadf02a39ca43717844d45e4a3c945adc88c9afea3cc53eb98696200db"
+    },
+    {
+      "file": "model-04.bin",
+      "bytes": 16777216,
+      "sha256": "fea6ded0c9ef440fa01711234c69b59e66808ae0395130fcf663eb9e91c860d3"
+    },
+    {
+      "file": "model-05.bin",
+      "bytes": 16777216,
+      "sha256": "f14973fee7c7265b34384ecb3b3ec9d0a519dad1ab16f74ab103e3df72324bbe"
+    },
+    {
+      "file": "model-06.bin",
+      "bytes": 16777216,
+      "sha256": "4d975733a72ea26292f1bed890cb6db81555b5a7f8efca9094a9dc6783aa830a"
+    },
+    {
+      "file": "model-07.bin",
+      "bytes": 7360912,
+      "sha256": "c1ecde21cc2bd675fc9412724077e7af000b81b543c6f8a0e3e54d60c28d8a66"
+    }
+  ],
+  "bytes": 124801424,
+  "sha256": "d1832c1d96e4d8436bb33930490a623e21a4d9ebc4023692dd6650312595edbf"
+}

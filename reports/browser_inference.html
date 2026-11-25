@@ -1,0 +1,42 @@
+<script>
+(() => {
+    let worker = null;
+    let nextRequest = 0;
+    const pending = new Map();
+    function resetWorker(error) {
+        if (worker) worker.terminate();
+        worker = null;
+        for (const item of pending.values()) {
+            clearTimeout(item.timeout);
+            item.reject(error);
+        }
+        pending.clear();
+    }
+    window.runBrowserRoberta = (text, onProgress) => {
+        if (!worker) {
+            worker = new Worker(new URL('assets/roberta-worker.js', document.baseURI), { type: 'module' });
+            worker.onerror = () => resetWorker(new Error('Browser model could not start.'));
+            worker.onmessage = event => {
+                const message = event.data, request = pending.get(message.id);
+                if (!request) return;
+                if (message.type === 'progress') {
+                    clearTimeout(request.timeout);
+                    request.timeout = setTimeout(() => resetWorker(new Error('Model loading timed out.')), 120000);
+                    request.onProgress(message);
+                    return;
+                }
+                clearTimeout(request.timeout);
+                pending.delete(message.id);
+                if (message.type === 'result') request.resolve(message.result);
+                else request.reject(new Error(message.error));
+            };
+        }
+        return new Promise((resolve, reject) => {
+            const id = ++nextRequest;
+            const timeout = setTimeout(() => resetWorker(new Error('Model loading timed out.')), 120000);
+            pending.set(id, { resolve, reject, timeout, onProgress });
+            worker.postMessage({ id, text });
+        });
+    };
+})();
+</script>

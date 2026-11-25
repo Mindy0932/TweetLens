@@ -1,0 +1,105 @@
+<script>
+(() => {
+    const localeData = __LOCALE_DATA__;
+    const phraseEntries = Object.entries(localeData.phrases).sort((a, b) => b[0].length - a[0].length);
+    const sourceText = new WeakMap();
+    const writtenText = new WeakMap();
+    const sourceAttributes = new WeakMap();
+    let language = 'en';
+    try {
+        if (localStorage.getItem('tweetlens-language') === 'zh-Hant') language = 'zh-Hant';
+    } catch {}
+    const switcher = document.createElement('div');
+    switcher.className = 'language-switch';
+    switcher.setAttribute('role', 'group');
+    switcher.setAttribute('aria-label', 'Language');
+    switcher.innerHTML = '<button type="button" data-language="en">English</button><button type="button" data-language="zh-Hant">繁體中文</button>';
+    document.querySelector('header').appendChild(switcher);
+
+    function translate(value) {
+        if (language === 'en') {
+            const split = value.match(/^原始数据 ([\d,]+) 条，删除 (\d+) 条缺失和 (\d+) 条重复后，训练 ([\d,]+) 条、验证 ([\d,]+) 条。固定种子42。$/);
+            if (split) return 'From ' + split[1] + ' records, ' + split[2] + ' missing and ' + split[3] + ' duplicate records were removed. Training has ' + split[4] + ' samples and validation has ' + split[5] + '. Seed 42.';
+        }
+        let result = value;
+        for (const [source, targets] of phraseEntries) result = result.replaceAll(source, targets[language]);
+        if (language === 'zh-Hant') {
+            result = result.replace(/[\u4e00-\u9fff]/g, character => localeData.traditional[character] || character);
+        }
+        return result;
+    }
+    function translateTextNode(node) {
+        if (!node.parentElement || node.parentElement.closest('script,style,textarea,code,pre,.preview-sample p,.sample p,.big-result,.language-switch')) return;
+        const value = node.nodeValue;
+        if (!value.trim()) return;
+        if (!sourceText.has(node) || writtenText.get(node) !== value) sourceText.set(node, value);
+        const translated = translate(sourceText.get(node));
+        writtenText.set(node, translated);
+        if (value !== translated) node.nodeValue = translated;
+    }
+    function translateAttributes(element) {
+        if (element.closest('.language-switch')) return;
+        let entries = sourceAttributes.get(element);
+        if (!entries) {
+            entries = {};
+            sourceAttributes.set(element, entries);
+        }
+        for (const name of ['placeholder', 'aria-label', 'title']) {
+            if (!element.hasAttribute(name)) continue;
+            const current = element.getAttribute(name);
+            if (!entries[name] || entries[name].written !== current) entries[name] = { source: current };
+            const translated = translate(entries[name].source);
+            entries[name].written = translated;
+            if (current !== translated) element.setAttribute(name, translated);
+        }
+    }
+    function translateTree(root) {
+        if (root.nodeType === Node.TEXT_NODE) {
+            translateTextNode(root);
+            return;
+        }
+        if (root.nodeType !== Node.ELEMENT_NODE) return;
+        translateAttributes(root);
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        let node;
+        while ((node = walker.nextNode())) translateTextNode(node);
+        for (const element of root.querySelectorAll('[placeholder],[aria-label],[title]')) translateAttributes(element);
+    }
+    function positionTooltip() {
+        if (!tooltip.hidden) {
+            tooltip.style.left = Math.max(8, Math.min(parseFloat(tooltip.style.left) || 8, innerWidth - tooltip.offsetWidth - 12)) + 'px';
+            tooltip.style.top = Math.max(8, Math.min(parseFloat(tooltip.style.top) || 8, innerHeight - tooltip.offsetHeight - 12)) + 'px';
+        }
+    }
+    function applyLanguage() {
+        document.documentElement.lang = language;
+        for (const button of switcher.querySelectorAll('button')) button.setAttribute('aria-pressed', String(button.dataset.language === language));
+        translateTree(document.body);
+        positionTooltip();
+    }
+    for (const button of switcher.querySelectorAll('button')) {
+        button.onclick = () => {
+            language = button.dataset.language;
+            try { localStorage.setItem('tweetlens-language', language); } catch {}
+            applyLanguage();
+        };
+    }
+    const observer = new MutationObserver(records => {
+        for (const record of records) {
+            if (record.type === 'childList') {
+                for (const node of record.addedNodes) translateTree(node);
+            } else if (record.type === 'characterData') {
+                translateTextNode(record.target);
+            } else {
+                translateAttributes(record.target);
+            }
+        }
+        positionTooltip();
+    });
+    applyLanguage();
+    document.documentElement.classList.remove('app-loading');
+    const loader = document.querySelector('.init-loader');
+    if (loader) loader.remove();
+    observer.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['placeholder', 'aria-label', 'title'] });
+})();
+</script>

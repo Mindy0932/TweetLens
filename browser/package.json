@@ -1,0 +1,1 @@
+{"private":true,"dependencies":{"@huggingface/transformers":"3.8.1","esbuild":"^0.28.2","onnxruntime-web":"1.22.0"}}

@@ -1,0 +1,41 @@
+{
+  "What a wonderful day! I am so happy and grateful.": {
+    "label": "positive",
+    "classes": [
+      "negative",
+      "neutral",
+      "positive"
+    ],
+    "probs": [
+      0.0011222625222935146,
+      0.0006410318609717836,
+      0.9982367056167347
+    ]
+  },
+  "The service was terrible. I am really disappointed.": {
+    "label": "negative",
+    "classes": [
+      "negative",
+      "neutral",
+      "positive"
+    ],
+    "probs": [
+      0.9814667315264103,
+      0.007238067715178171,
+      0.01129520075841156
+    ]
+  },
+  "I love the design, but the service was really disappointing.": {
+    "label": "negative",
+    "classes": [
+      "negative",
+      "neutral",
+      "positive"
+    ],
+    "probs": [
+      0.6685496702521764,
+      0.09048751603489047,
+      0.24096281371293313
+    ]
+  }
+}

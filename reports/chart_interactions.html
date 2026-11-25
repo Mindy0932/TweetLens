@@ -1,0 +1,333 @@
+<script>
+const chartState = { topic: null, sentiment: null };
+const tooltip = document.createElement('div');
+tooltip.className = 'chart-tooltip';
+tooltip.hidden = true;
+tooltip.setAttribute('role', 'tooltip');
+document.body.appendChild(tooltip);
+
+function showChartTip(event, text) {
+    tooltip.textContent = text;
+    tooltip.hidden = false;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX || rect.left + rect.width / 2;
+    const y = event.clientY || rect.top;
+    tooltip.style.left = Math.max(8, Math.min(x + 12, innerWidth - tooltip.offsetWidth - 12)) + 'px';
+    tooltip.style.top = Math.max(8, Math.min(y + 16, innerHeight - tooltip.offsetHeight - 12)) + 'px';
+}
+function hideChartTip() {
+    tooltip.hidden = true;
+}
+function attachTip(element, text) {
+    element.addEventListener('pointerenter', event => showChartTip(event, text));
+    element.addEventListener('pointermove', event => showChartTip(event, text));
+    element.addEventListener('pointerleave', hideChartTip);
+    element.addEventListener('focus', event => showChartTip(event, text));
+    element.addEventListener('blur', hideChartTip);
+}
+let resultNavigation = 0;
+function revealResult(element) {
+    const request = ++resultNavigation;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (request !== resultNavigation || !element.isConnected || !element.getClientRects().length) return;
+        const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+        element.setAttribute('tabindex', '-1');
+        element.focus({ preventScroll: true });
+        element.scrollIntoView({ behavior, block: 'start' });
+    }));
+}
+const detailTrail = [];
+let detailNavigation = false;
+const backButton = document.createElement('button');
+backButton.id = 'returnToChart';
+backButton.className = 'btn secondary';
+backButton.hidden = true;
+backButton.style.marginBottom = '18px';
+$('kpis').before(backButton);
+function updateBackButton() {
+    const last = detailTrail[detailTrail.length - 1];
+    backButton.hidden = !last;
+    if (last) backButton.textContent = '← 返回' + last.label;
+}
+function goToDetail(tab) {
+    const current = document.querySelector('.nav.active');
+    detailTrail.push({ tab: current.dataset.tab, label: {overview:'数据概览',experiments:'模型实验',analyze:'推文分析',explore:'样本探索',methods:'方法与来源'}[current.dataset.tab], scroll: window.scrollY });
+    detailNavigation = true;
+    document.querySelector('[data-tab="' + tab + '"]').click();
+    detailNavigation = false;
+    updateBackButton();
+    revealResult($(tab === 'explore' ? 'samples' : 'analysisResult'));
+}
+backButton.onclick = () => {
+    const previous = detailTrail.pop();
+    if (!previous) return;
+    detailNavigation = true;
+    document.querySelector('[data-tab="' + previous.tab + '"]').click();
+    detailNavigation = false;
+    updateBackButton();
+    requestAnimationFrame(() => window.scrollTo({ top: previous.scroll, behavior: 'instant' }));
+};
+for (const nav of document.querySelectorAll('.nav')) {
+    nav.addEventListener('click', () => {
+        if (!detailNavigation) {
+            detailTrail.length = 0;
+            updateBackButton();
+        }
+    });
+}
+for (const [chart, preview] of [['distribution','distributionPreview'], ['scatter','scatterPreview'], ['heatmap','heatmapPreview'], ['confusion','matrixPreview'], ['terms','termsPreview']]) {
+    $(chart).insertAdjacentHTML('afterend', '<div id="' + preview + '" class="inline-preview" hidden></div>');
+}
+function showInlinePreview(id, rows, title) {
+    const controls = {};
+    for (const key of ['search','labelFilter','sampleModel','confidenceThreshold']) controls[key] = $(key).value;
+    controls.errorsOnly = $('errorsOnly').checked;
+    controls.disagreementOnly = $('disagreementOnly').checked;
+    const selection = { topic: chartState.topic, sentiment: chartState.sentiment, matrix: matrixFilter ? {...matrixFilter} : null };
+    const container = $(id);
+    container.hidden = false;
+    container.replaceChildren();
+    const heading = document.createElement('h3');
+    heading.id = id + 'Title';
+    container.setAttribute('aria-labelledby', heading.id);
+    heading.textContent = title + ' · ' + num(rows.length) + ' 条验证样本';
+    container.appendChild(heading);
+    for (const row of rows.slice(0, 3)) {
+        const card = document.createElement('div');
+        card.className = 'preview-sample';
+        const label = document.createElement('span');
+        label.className = 'note';
+        label.textContent = '真实情感 ' + row.sentiment;
+        const text = document.createElement('p');
+        text.textContent = row.text;
+        const analyzeButton = document.createElement('button');
+        analyzeButton.className = 'btn secondary';
+        analyzeButton.textContent = '分析这条推文';
+        analyzeButton.onclick = () => {
+            $('tweetInput').value = row.text;
+            if (id === 'matrixPreview') $('liveModel').value = controls.sampleModel;
+            goToDetail('analyze');
+            analyze();
+        };
+        card.append(label, text, analyzeButton);
+        container.appendChild(card);
+    }
+    const actions = document.createElement('div');
+    actions.className = 'toolbar';
+    const view = document.createElement('button');
+    view.className = 'btn secondary';
+    view.textContent = '查看全部匹配样本';
+    view.onclick = () => {
+        $('resetSelection').click();
+        Object.assign(chartState, {topic: selection.topic, sentiment: selection.sentiment});
+        matrixFilter = selection.matrix;
+        $('topicFilter').value = selection.topic === null ? 'all' : String(selection.topic);
+        for (const key of ['search','labelFilter','sampleModel','confidenceThreshold']) $(key).value = controls[key];
+        $('errorsOnly').checked = controls.errorsOnly;
+        $('disagreementOnly').checked = controls.disagreementOnly;
+        sampleFilter();
+        drawTopicExplorer();
+        goToDetail('explore');
+    };
+    const close = document.createElement('button');
+    close.className = 'btn secondary';
+    close.textContent = '收起预览';
+    close.onclick = () => {
+        container.hidden = true;
+        const origin = {distributionPreview:'distribution',scatterPreview:'scatter',heatmapPreview:'heatmap',matrixPreview:'confusion',termsPreview:'terms'}[id];
+        revealResult($(origin));
+    };
+    if (rows.length > 3) actions.appendChild(view);
+    actions.appendChild(close);
+    container.appendChild(actions);
+    hideChartTip();
+    revealResult(container);
+}
+function openChartSamples(topic, sentiment, keyword = '', previewId = 'heatmapPreview') {
+    $('resetSelection').click();
+    chartState.topic = topic;
+    chartState.sentiment = sentiment;
+    $('topicFilter').value = topic === null ? 'all' : String(topic);
+    $('labelFilter').value = sentiment || 'all';
+    $('search').value = keyword;
+    sampleFilter();
+    drawTopicExplorer();
+    showInlinePreview(previewId, filtered, keyword ? '包含 “' + keyword + '”' : (sentiment || '全部情感'));
+}
+
+const previousFilter = sampleFilter;
+sampleFilter = function () {
+    previousFilter();
+    if (chartState.topic !== null) {
+        filtered = filtered.filter(row => row.topic === chartState.topic);
+    }
+    page = 0;
+    renderSamples();
+    const selected = [];
+    if (chartState.topic !== null) selected.push('主题：' + D.metrics.topic_names[String(chartState.topic)]);
+    if (matrixFilter) selected.push('矩阵：' + matrixFilter.real + ' → ' + matrixFilter.pred);
+    $('selectionInfo').textContent = selected.join(' · ');
+};
+for (const id of ['search', 'labelFilter', 'errorsOnly', 'sampleModel', 'confidenceThreshold', 'disagreementOnly']) {
+    $(id).addEventListener(['search', 'confidenceThreshold'].includes(id) ? 'input' : 'change', () => sampleFilter());
+}
+const previousReset = $('resetSelection').onclick;
+$('resetSelection').onclick = () => {
+    chartState.topic = null;
+    chartState.sentiment = null;
+    $('topicFilter').value = 'all';
+    previousReset();
+    drawTopicExplorer();
+};
+const previousRender = renderSamples;
+renderSamples = function () {
+    previousRender();
+    const button = $('selectionInfo');
+    if (chartState.topic !== null) {
+        button.textContent = '主题：' + D.metrics.topic_names[String(chartState.topic)];
+    }
+};
+
+$('distribution').innerHTML = labels.map(label => {
+    const count = stats.class_counts[label];
+    return '<button class="chart-button sentiment-bar" data-label="' + label + '" aria-label="查看 ' + label + ' 验证样本"><div class="bar-row"><span>' + label + '</span><div class="track"><div class="fill" style="width:' + (100 * count / stats.clean_rows) + '%;background:' + C[label] + '"></div></div><strong>' + pct(count / stats.clean_rows) + '</strong></div></button>';
+}).join('');
+for (const button of $('distribution').querySelectorAll('button')) {
+    const label = button.dataset.label;
+    attachTip(button, label + '：' + num(stats.class_counts[label]) + ' 条清洗后语料。点击预览该标签的验证样本。');
+    button.onclick = () => openChartSamples(null, label, '', 'distributionPreview');
+}
+
+$('scatter').insertAdjacentHTML('afterend', '<div class="toolbar"><button class="btn secondary" id="openTopicSamples">查看当前选择的样本</button><button class="btn secondary" id="resetTopic">重置选择</button><span class="note" id="pointCount" aria-live="polite"></span></div>');
+$('legend').innerHTML = labels.map(label => '<button class="legend-button" data-label="' + label + '" aria-pressed="false"><i style="background:' + C[label] + '"></i>' + label + '</button>').join('');
+for (const button of $('legend').querySelectorAll('button')) {
+    button.onclick = () => {
+        chartState.sentiment = chartState.sentiment === button.dataset.label ? null : button.dataset.label;
+        drawTopicExplorer();
+    };
+}
+$('topicFilter').onchange = () => {
+    chartState.topic = $('topicFilter').value === 'all' ? null : Number($('topicFilter').value);
+    drawTopicExplorer();
+};
+$('resetTopic').onclick = () => {
+    chartState.topic = null;
+    chartState.sentiment = null;
+    $('topicFilter').value = 'all';
+    drawTopicExplorer();
+};
+$('openTopicSamples').onclick = () => {
+    openChartSamples(chartState.topic, chartState.sentiment, '', 'scatterPreview');
+    goToDetail('explore');
+};
+
+function drawTopicExplorer() {
+    const points = D.points;
+    const xs = points.map(point => point.x);
+    const ys = points.map(point => point.y);
+    const xmin = Math.min(...xs), xmax = Math.max(...xs);
+    const ymin = Math.min(...ys), ymax = Math.max(...ys);
+    const matches = point => (chartState.topic === null || point.topic === chartState.topic) &&
+        (chartState.sentiment === null || point.sentiment === chartState.sentiment);
+    let svg = '<svg viewBox="0 0 620 300" role="group" aria-label="主题投影，点击一个点预览推文">';
+    for (let i = 0; i < 5; i++) {
+        svg += '<line x1="30" y1="' + (20 + i * 62) + '" x2="600" y2="' + (20 + i * 62) + '" stroke="#edf1f7"/>';
+    }
+    // Draw highlighted points last so they remain selectable above the context.
+    const ordered = points.map((point, index) => ({ point, index })).sort((a, b) => Number(matches(a.point)) - Number(matches(b.point)));
+    for (const { point, index } of ordered) {
+        const x = 30 + (point.x - xmin) / (xmax - xmin || 1) * 560;
+        const y = 270 - (point.y - ymin) / (ymax - ymin || 1) * 245;
+        svg += '<circle data-index="' + index + '" cx="' + x + '" cy="' + y + '" r="' + (matches(point) ? 3.6 : 2.5) + '" fill="' + C[point.sentiment] + '" opacity="' + (matches(point) ? .72 : .07) + '"/>';
+    }
+    $('scatter').innerHTML = svg + '</svg>';
+    for (const circle of $('scatter').querySelectorAll('circle')) {
+        const point = points[Number(circle.dataset.index)];
+        attachTip(circle, point.sentiment + '\n' + point.text + '\n点击预览推文');
+        circle.onclick = () => {
+            const row = D.rows.find(row => row.text === point.text);
+            if (row) showInlinePreview('scatterPreview', [row], '选中的推文');
+            circle.setAttribute('r', '6');
+        };
+    }
+    for (const button of $('legend').querySelectorAll('button')) {
+        button.setAttribute('aria-pressed', String(chartState.sentiment === button.dataset.label));
+    }
+    $('pointCount').textContent = '当前突出显示 ' + points.filter(matches).length + ' / ' + points.length + ' 个抽样点';
+    drawTopicHeatmap();
+}
+function drawTopicHeatmap() {
+    let html = '<table><thead><tr><th>主题关键词</th>' + labels.map(label => '<th>' + label + '</th>').join('') + '</tr></thead><tbody>';
+    for (const [topic, name] of Object.entries(D.metrics.topic_names)) {
+        const rows = D.rows.filter(row => row.topic === Number(topic));
+        html += '<tr><td>' + esc(name) + '</td>';
+        for (const label of labels) {
+            const count = rows.filter(row => row.sentiment === label).length;
+            const share = count / (rows.length || 1);
+            const selected = chartState.topic === Number(topic) && (!chartState.sentiment || chartState.sentiment === label);
+            html += '<td><button class="matrix-cell topic-cell" data-topic="' + topic + '" data-label="' + label + '" aria-label="' + esc(name + '，' + label + '，' + count + ' 条') + '" style="width:100%;padding:10px;background:rgba(35,93,235,' + (.05 + share * .7) + ');color:' + (share > .55 ? 'white' : '#243757') + ';outline:' + (selected ? '2px solid #235deb' : 'none') + '">' + pct(share) + '</button></td>';
+        }
+        html += '</tr>';
+    }
+    $('heatmap').innerHTML = html + '</tbody></table>';
+    for (const cell of $('heatmap').querySelectorAll('button')) {
+        const topic = Number(cell.dataset.topic), label = cell.dataset.label;
+        const rows = D.rows.filter(row => row.topic === topic);
+        const count = rows.filter(row => row.sentiment === label).length;
+        attachTip(cell, D.metrics.topic_names[String(topic)] + '\n' + label + '：' + count + ' / ' + rows.length + ' 条验证推文\n点击预览匹配样本');
+        cell.onclick = () => openChartSamples(topic, label);
+    }
+}
+drawTopicExplorer();
+$('projectionNote').textContent = '二维 SVD 保留约 ' + pct(D.metrics.svd_variance_explained) + ' 的方差。点击图例或选择主题突出显示；悬停读原文，点击圆点预览。';
+
+$('modelChart').insertAdjacentHTML('beforebegin', '<div class="toolbar"><label for="chartMetric">比较指标</label><select id="chartMetric"><option value="macro_f1">Macro-F1</option><option value="accuracy">Accuracy</option></select></div>');
+function drawModelComparison() {
+    const metric = $('chartMetric').value;
+    const ranked = extendedModels.map((model, index) => ({ model, index })).sort((a, b) => b.model[metric] - a.model[metric]);
+    $('modelChart').innerHTML = ranked.map(({ model, index }) => '<button class="chart-button model-bar" data-index="' + index + '"><h3>' + esc(model.model) + '</h3>' + bars([{ label: metric === 'macro_f1' ? 'Macro-F1' : 'Accuracy', n: model[metric], color: model.model.startsWith('RoBERTa') ? '#12a58d' : '#235deb' }], 1) + '</button>').join('');
+    for (const button of $('modelChart').querySelectorAll('button')) {
+        const model = extendedModels[Number(button.dataset.index)];
+        attachTip(button, model.model + '\nAccuracy ' + pct(model.accuracy) + '\nMacro-F1 ' + model.macro_f1.toFixed(3) + '\n点击查看混淆矩阵');
+        button.onclick = () => {
+            $('matrixChoice').value = button.dataset.index;
+            enhancedMatrix();
+            hideChartTip();
+            revealResult($('confusion'));
+
+        };
+    }
+}
+$('chartMetric').onchange = drawModelComparison;
+drawModelComparison();
+
+for (const span of $('terms').querySelectorAll('.term')) {
+    const button = document.createElement('button');
+    button.className = span.className;
+    button.textContent = span.textContent;
+    attachTip(button, span.textContent + '\n' + span.title + '\n点击查找包含该词组的验证推文');
+    button.onclick = () => openChartSamples(null, null, button.textContent, 'termsPreview');
+    span.replaceWith(button);
+}
+for (const nav of document.querySelectorAll('.nav')) nav.addEventListener('click', hideChartTip);
+window.addEventListener('scroll', hideChartTip, true);
+document.addEventListener('keydown', event => { if (event.key === 'Escape') hideChartTip(); });
+sampleFilter();
+$('matrixChoice').addEventListener('change', () => revealResult($('confusion')));
+$('chartMetric').addEventListener('change', () => revealResult($('modelChart')));
+$('topicFilter').addEventListener('change', () => revealResult($('scatter')));
+for (const id of ['prevBtn', 'nextBtn']) {
+    const changePage = $(id).onclick;
+    $(id).onclick = () => {
+        changePage();
+        revealResult($('samples'));
+    };
+}
+const analyzeAndReveal = analyze;
+analyze = async function () {
+    const completion = analyzeAndReveal();
+    revealResult($('analysisResult'));
+    await completion;
+};
+$('analyzeBtn').onclick = analyze;
+</script>

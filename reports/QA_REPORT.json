@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "checks": {
+    "group_overlap": 0,
+    "validation_rows": 5481,
+    "validation_span_substrings": true,
+    "submission_rows_and_ids": true,
+    "executed_notebook_code_cells": 10,
+    "streamlit_start_and_single_inference": true,
+    "browser_inference_python_probability_parity_fixtures": 108,
+    "max_probability_difference": 3.399489578725934e-10,
+    "browser_span_python_parity": true,
+    "browser_tabs_filters_pagination_export": true,
+    "browser_html_escaping": true,
+    "mobile_390px_no_horizontal_overflow": true,
+    "javascript_errors": 0
+  },
+  "note": "Notebook cells executed in order using an in-process IPython shell; UI checked in headless Chromium. No official Kaggle submission."
+}

@@ -51,7 +51,7 @@ analyze=async function(){
  $('analyzeBtn').disabled=true;$('analysisResult').textContent='RoBERTa 正在分析，首次加载需要一些时间…';
  try{
   let result;
-  if(['127.0.0.1','localhost'].includes(location.hostname)&&!window.TweetLensForceBrowser){
+  if(window.TweetLensUsePythonApi){
    const response=await fetch('/api/roberta',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})});
    result=await response.json();
    if(!response.ok)throw Error(result.error||'服务不可用');
